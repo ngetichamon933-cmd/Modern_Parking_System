@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Vehicle Exit — Moih Park Kenya{% endblock %}
+
+{% block content %}
+<h1>Process Vehicle Exit</h1>
+<p class="page-subtitle">Look up a plate number to calculate the parking fee owed.</p>
+
+<form method="POST" action="{{ url_for('exit_page') }}" class="form-card">
+    <label for="plate_number">Plate Number *</label>
+    <input type="text" id="plate_number" name="plate_number" placeholder="e.g. KDA 123A" required autofocus>
+    <button type="submit" class="btn btn-primary btn-block">Calculate Fee</button>
+</form>
+
+{% if quote %}
+<div class="quote-card">
+    <h2>Fee Summary</h2>
+    <table class="summary-table">
+        <tr><th>Plate Number</th><td>{{ quote.plate_number }}</td></tr>
+        <tr><th>Slot</th><td>{{ quote.slot_number }}</td></tr>
+        <tr><th>Entry Time</th><td>{{ quote.entry_time }}</td></tr>
+        <tr><th>Duration</th><td>{{ quote.hours_parked }} hours ({{ quote.minutes_parked }} minutes)</td></tr>
+        <tr><th>Amount Due</th><td class="amount-due">Kshs {{ quote.fee }}</td></tr>
+    </table>
+    <a href="{{ url_for('payment_page', session_id=quote.session_id) }}" class="btn btn-primary btn-block">Proceed to Payment</a>
+</div>
+{% endif %}
+{% endblock %}

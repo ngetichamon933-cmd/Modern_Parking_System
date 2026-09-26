@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Payment — Moih Park Kenya{% endblock %}
+
+{% block content %}
+<h1>Payment</h1>
+
+<div class="quote-card">
+    <table class="summary-table">
+        <tr><th>Plate Number</th><td>{{ session.plate_number }}</td></tr>
+        <tr><th>Slot</th><td>{{ session.slot_number }}</td></tr>
+        <tr><th>Amount Due</th><td class="amount-due">Kshs {{ amount }}</td></tr>
+    </table>
+</div>
+
+<div class="payment-methods">
+    <div class="payment-option">
+        <h2>Pay with Cash</h2>
+        <form method="POST" action="{{ url_for('pay_cash', session_id=session.session_id) }}">
+            <button type="submit" class="btn btn-primary btn-block">Confirm Cash Payment</button>
+        </form>
+    </div>
+
+    <div class="payment-option">
+        <h2>Pay with M-Pesa</h2>
+        <form method="POST" action="{{ url_for('pay_mpesa', session_id=session.session_id) }}" id="mpesa-form">
+            <label for="phone_number">Phone Number</label>
+            <input type="text" id="phone_number" name="phone_number" placeholder="2547XXXXXXXX" pattern="254[0-9]{9}" required>
+            <button type="submit" class="btn btn-secondary btn-block">Send STK Push</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Toggle a small loading hint on the M-Pesa button so the attendant
+    // knows the STK push request is in flight.
+    setupMpesaFormFeedback();
+</script>
+{% endblock %}

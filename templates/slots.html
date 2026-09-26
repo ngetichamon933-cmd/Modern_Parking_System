@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Slots — Moih Park Kenya{% endblock %}
+
+{% block content %}
+<h1>Parking Slots</h1>
+<p class="page-subtitle"><span id="available-count">{{ available_count }}</span> of {{ slots|length }} slots available</p>
+
+<div class="slot-grid" id="slot-grid">
+    {% for slot in slots %}
+    <div class="slot {{ 'slot-occupied' if slot.is_occupied else 'slot-free' }}" data-slot="{{ slot.slot_number }}">
+        {{ slot.slot_number }}
+    </div>
+    {% endfor %}
+</div>
+
+<div class="legend">
+    <span class="legend-item"><span class="legend-swatch slot-free"></span> Available</span>
+    <span class="legend-item"><span class="legend-swatch slot-occupied"></span> Occupied</span>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Poll the slot status every 5 seconds so the display stays live
+    // without the attendant needing to refresh the page.
+    startSlotAutoRefresh();
+</script>
+{% endblock %}

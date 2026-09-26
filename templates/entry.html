@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Vehicle Entry — Moih Park Kenya{% endblock %}
+
+{% block content %}
+<h1>Register Vehicle Entry</h1>
+<p class="page-subtitle">Assign a slot and log the arrival time for an incoming vehicle.</p>
+
+<form method="POST" action="{{ url_for('entry_page') }}" class="form-card">
+    <label for="plate_number">Plate Number *</label>
+    <input type="text" id="plate_number" name="plate_number" placeholder="e.g. KDA 123A" required autofocus>
+
+    <label for="owner_name">Owner Name (optional)</label>
+    <input type="text" id="owner_name" name="owner_name" placeholder="e.g. Jane Wanjiru">
+
+    <label for="vehicle_type">Vehicle Type (optional)</label>
+    <select id="vehicle_type" name="vehicle_type">
+        <option value="">-- Select --</option>
+        <option value="Saloon">Saloon</option>
+        <option value="SUV">SUV</option>
+        <option value="Matatu">Matatu</option>
+        <option value="Truck">Truck</option>
+        <option value="Motorcycle">Motorcycle</option>
+    </select>
+
+    <button type="submit" class="btn btn-primary btn-block">Register Entry &amp; Open Barrier</button>
+</form>
+{% endblock %}

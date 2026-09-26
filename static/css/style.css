@@ -1,0 +1,252 @@
+/* Moih Park Kenya — stylesheet
+   Blue and white color palette, Poppins font for a clean, modern look.
+   Red is kept only as a functional color (occupied slots, error
+   messages) so those states stay easy to tell apart at a glance. */
+
+:root {
+    --blue-dark: #0b3d91;
+    --blue: #1d4ed8;
+    --blue-light: #3b82f6;
+    --blue-pale: #eaf1ff;
+    --red: #c8102e;
+    --black: #1a1a1a;
+    --gray: #6b7280;
+    --gray-light: #f4f7fd;
+    --border: #dbe4f3;
+    --white: #ffffff;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: 'Poppins', 'Segoe UI', Roboto, Arial, sans-serif;
+    background: var(--gray-light);
+    color: var(--black);
+}
+
+/* --- Navbar --- */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--blue-dark);
+    color: var(--white);
+    padding: 14px 24px;
+    flex-wrap: wrap;
+}
+
+.navbar-brand { font-size: 1.2rem; font-weight: 600; }
+.navbar-brand span { color: var(--blue-light); }
+
+.navbar-links a {
+    color: var(--white);
+    text-decoration: none;
+    margin: 0 10px;
+    font-size: 0.95rem;
+}
+.navbar-links a:hover { color: var(--blue-light); }
+
+.navbar-user { display: flex; align-items: center; gap: 12px; }
+.btn-logout {
+    color: var(--white);
+    background: var(--red);
+    padding: 6px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.85rem;
+}
+
+/* --- Layout --- */
+.page-container { max-width: 1000px; margin: 0 auto; padding: 24px; }
+h1 { margin-bottom: 4px; font-weight: 600; }
+.page-subtitle { color: var(--gray); margin-top: 0; margin-bottom: 20px; }
+
+/* --- Flash messages --- */
+.flash-messages { margin-bottom: 16px; }
+.flash {
+    padding: 10px 14px;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+.flash-success { background: var(--blue-pale); color: var(--blue-dark); border: 1px solid var(--blue-light); }
+.flash-error { background: #fde2e4; color: var(--red); border: 1px solid var(--red); }
+
+/* --- Buttons --- */
+.btn {
+    display: inline-block;
+    padding: 10px 18px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-family: inherit;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+}
+.btn-primary { background: var(--blue); color: var(--white); }
+.btn-primary:hover { background: var(--blue-light); }
+.btn-secondary { background: var(--white); color: var(--blue-dark); border: 1px solid var(--border); }
+.btn-secondary:hover { background: var(--blue-pale); }
+.btn-block { display: block; width: 100%; margin-top: 10px; }
+
+/* --- Forms --- */
+.form-card, .quote-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+    max-width: 480px;
+    margin-bottom: 24px;
+}
+label { display: block; margin: 12px 0 6px; font-size: 0.9rem; font-weight: 600; }
+input, select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    font-size: 0.95rem;
+    font-family: inherit;
+}
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--blue-light);
+    box-shadow: 0 0 0 3px var(--blue-pale);
+}
+
+/* --- Password show/hide toggle --- */
+.password-field { position: relative; }
+.password-field input { padding-right: 42px; }
+.password-toggle {
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 4px 8px;
+}
+
+/* --- Friendlier, larger touch targets on small screens --- */
+@media (max-width: 640px) {
+    .navbar { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .navbar-links { display: flex; flex-wrap: wrap; gap: 4px 12px; }
+    .navbar-user { align-self: flex-end; }
+    .page-container { padding: 16px; }
+    .btn { padding: 12px 18px; font-size: 1rem; }
+    input, select { padding: 12px; font-size: 1rem; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .slot-grid { grid-template-columns: repeat(auto-fill, minmax(48px, 1fr)); }
+    .data-table, .data-table thead { font-size: 0.8rem; }
+    .payment-methods { flex-direction: column; }
+}
+
+/* --- Login page --- */
+.login-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--blue-dark), var(--blue-light));
+    margin: 0;
+    font-family: 'Poppins', 'Segoe UI', Roboto, Arial, sans-serif;
+}
+.login-card {
+    background: var(--white);
+    padding: 36px;
+    border-radius: 12px;
+    width: 340px;
+    text-align: center;
+    box-shadow: 0 12px 32px rgba(11, 61, 145, 0.35);
+}
+.login-card h1 { margin-bottom: 0; font-weight: 700; }
+.login-card h1 span { color: var(--blue); }
+.subtitle { color: var(--gray); font-size: 0.85rem; margin-top: 4px; }
+
+/* --- Stats grid --- */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 14px;
+    margin-bottom: 24px;
+}
+.stat-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px;
+    text-align: center;
+}
+.stat-value { font-size: 1.5rem; font-weight: 700; color: var(--blue); }
+.stat-label { color: var(--gray); font-size: 0.85rem; margin-top: 4px; }
+
+.quick-actions { display: flex; gap: 10px; margin-bottom: 28px; flex-wrap: wrap; }
+.quick-actions .btn { flex: 1; min-width: 160px; }
+
+/* --- Slot grid --- */
+.slot-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+    gap: 10px;
+    margin-bottom: 16px;
+}
+.slot {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-weight: 600;
+    color: var(--white);
+}
+.slot-free { background: var(--blue-light); }
+.slot-occupied { background: var(--red); }
+
+.legend { display: flex; gap: 20px; font-size: 0.85rem; }
+.legend-item { display: flex; align-items: center; gap: 6px; }
+.legend-swatch { width: 14px; height: 14px; border-radius: 4px; display: inline-block; }
+
+/* --- Tables --- */
+.data-table, .summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--white);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+}
+.data-table th, .data-table td,
+.summary-table th, .summary-table td {
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.9rem;
+}
+.data-table th { background: var(--blue-pale); color: var(--blue-dark); }
+.summary-table th { width: 40%; color: var(--gray); }
+.empty-row { text-align: center; color: var(--gray); }
+
+.amount-due { font-size: 1.2rem; font-weight: 700; color: var(--blue); }
+
+.badge {
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+.badge-paid { background: var(--blue-pale); color: var(--blue-dark); }
+.badge-parked { background: #fef3c7; color: #92400e; }
+
+/* --- Payment page --- */
+.payment-methods { display: flex; gap: 16px; flex-wrap: wrap; }
+.payment-option {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    flex: 1;
+    min-width: 260px;
+}

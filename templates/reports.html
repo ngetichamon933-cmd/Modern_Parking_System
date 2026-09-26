@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Reports — Moih Park Kenya{% endblock %}
+
+{% block content %}
+<h1>Reports</h1>
+<p class="page-subtitle">Summary for {{ report.date }}</p>
+
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-value">Kshs {{ report.revenue_today }}</div>
+        <div class="stat-label">Total Revenue</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value">{{ report.vehicles_today }}</div>
+        <div class="stat-label">Vehicles Served</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value">{{ report.occupancy.occupied_slots }} / {{ report.occupancy.total_slots }}</div>
+        <div class="stat-label">Current Occupancy</div>
+    </div>
+</div>
+
+<h2>All Sessions Today</h2>
+<table class="data-table">
+    <thead>
+        <tr>
+            <th>Plate</th>
+            <th>Slot</th>
+            <th>Entry Time</th>
+            <th>Exit Time</th>
+            <th>Fee</th>
+            <th>Payment Method</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for s in report.recent_sessions %}
+        <tr>
+            <td>{{ s.plate_number }}</td>
+            <td>{{ s.slot_number }}</td>
+            <td>{{ s.entry_time }}</td>
+            <td>{{ s.exit_time or "—" }}</td>
+            <td>{{ "Kshs " ~ s.fee_charged if s.fee_charged is not none else "—" }}</td>
+            <td>{{ s.payment_method or "—" }}</td>
+            <td><span class="badge badge-{{ 'paid' if s.status == 'COMPLETED' else 'parked' }}">{{ s.status }}</span></td>
+        </tr>
+        {% else %}
+        <tr><td colspan="7" class="empty-row">No sessions recorded yet.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
